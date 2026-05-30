@@ -11,8 +11,8 @@
 - `rules/classnames/AGENTS.md`: `classnames` 기반 className 조합 규칙
 - `rules/eslint/AGENTS.md`: ESLint 필수 규칙과 검사 범위
 - `rules/constants/AGENTS.md`: 매직 넘버와 매직 문자열 상수화 규칙
+- `rules/architecture/AGENTS.md`: 엔트리 포인트, 책임 경계, side effect 격리 규칙
 
 ## 사용 방식
 
 대상 프로젝트의 성격에 맞게 필요한 `AGENTS.md`를 복사하거나 병합합니다. 루트 공통 규칙을 먼저 두고, 더 좁은 디렉토리에 세부 규칙을 배치하면 가까운 `AGENTS.md`가 우선합니다.
-

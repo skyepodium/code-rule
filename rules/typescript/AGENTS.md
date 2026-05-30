@@ -18,6 +18,14 @@
 - hook은 `const useThing = (...) => {}` 형태로 작성한다.
 - overload가 꼭 필요하면 타입 alias와 구현 함수를 분리한다.
 
+## 제어 흐름
+
+- guard clause와 early return을 적극 사용한다.
+- 실패, 권한 없음, 데이터 없음, 플랫폼 제외, disabled/no-op 조건은 함수 앞쪽에서 빠르게 반환한다.
+- `return`, `throw`, `continue`, `break` 이후의 `else`는 피하고 happy path가 덜 들여쓰기되게 작성한다.
+- early return 조건이 도메인 지식을 담고 있으면 boolean helper나 named constant로 의미를 드러낸다.
+- 여러 조건을 한 줄에 숨기지 않는다. 독립적인 실패 조건은 읽히는 순서대로 나눈다.
+
 ## import와 모듈
 
 - import는 `~/...` 절대경로를 기본으로 한다.
@@ -39,4 +47,3 @@
 - 600 LOC를 넘으면 분할을 검토한다.
 - React 컴포넌트 파일에는 컴포넌트, props 타입, 작은 렌더 보조 함수까지만 둔다.
 - 비즈니스 로직은 순수 함수로 빼고 side effect는 service나 adapter 모듈에 격리한다.
-

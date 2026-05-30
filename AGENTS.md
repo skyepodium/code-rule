@@ -35,8 +35,16 @@
 - `any`는 금지한다. 외부 입력은 `unknown`으로 받고 narrowing 또는 schema 검증 후 사용한다.
 - 함수 선언문은 금지한다. `const functionName = (...) => {}` 형태의 화살표 함수 표현식을 사용한다.
 - import는 `~/...` 절대경로를 기본으로 한다. 같은 폴더 내부에서만 상대경로를 허용한다.
+- 중첩 조건문보다 guard clause와 early return을 우선한다. 실패, 권한 없음, 데이터 없음, 플랫폼 제외 같은 조건은 함수 앞에서 빠르게 반환한다.
 - catch 값은 `unknown`으로 취급하고 `instanceof Error` 또는 별도 narrowing 후 사용한다.
 - 빈 `catch`는 금지한다. 복구 전략이나 로깅 의도를 한국어 주석으로 남긴다.
+
+## 구조와 엔트리 포인트
+
+- 엔트리 포인트는 bootstrap과 wiring만 담당한다. 예: `main.ts`, `index.tsx`, `App.tsx`, root provider, root router, native app delegate/activity.
+- 엔트리 포인트에 네트워크, storage, 알림, 결제, 인증, native bridge 같은 세부 비즈니스 로직을 직접 넣지 않는다.
+- 로직이 커지면 hook, service, adapter, pure utility로 분리하고 엔트리 포인트는 의미가 드러나는 함수 호출만 조합한다.
+- side effect는 service나 adapter 경계에 격리하고, UI 컴포넌트는 화면 조립과 사용자 입력 연결에 집중한다.
 
 ## Next.js 기본값
 
@@ -70,4 +78,3 @@
 - PR 대상 브랜치는 `develop`이다.
 - PR 본문에는 `## 참여자 (participant)` 섹션을 포함하고 참여한 AI 에이전트를 명시한다.
 - PR은 구현 의도, 검증 결과, 남은 위험을 한국어로 적는다.
-

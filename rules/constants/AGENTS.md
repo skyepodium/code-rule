@@ -8,12 +8,14 @@
 - 상수 파일은 `src/shared/constants/<domain>.ts`에 둔다.
 - 도메인별로 파일을 나눈다. 예: `viewport.ts`, `pagination.ts`, `route.ts`, `animation.ts`.
 - `constants.ts` 하나에 모든 값을 몰아넣지 않는다.
+- timeout, interval, animation duration, spring config, gesture threshold, hit slop, retry count, page size, cache TTL, vibration pattern, storage key, route path, event name, query key, permission key, header key는 호출부에 직접 쓰지 않는다.
 
 ## 이름 규칙
 
 - 전역 상수는 `SCREAMING_SNAKE_CASE`를 사용한다.
 - 단위가 있으면 이름에 포함한다.
 - 픽셀은 `_PX`, 밀리초는 `_MS`, 비율은 `_RATIO`, 개수는 `_COUNT`, 길이는 `_LENGTH`를 사용한다.
+- 초 단위 값은 `_SECONDS`, 분 단위 값은 `_MINUTES`, 바이트 단위 값은 `_BYTES`를 사용한다.
 - boolean 의미를 갖는 값은 긍정형 이름을 사용한다.
 
 ## 객체 상수
@@ -53,4 +55,3 @@ export { VIEWPORT_TOOLTIP };
 - `style={{ width: 320 }}`처럼 크기 값을 인라인으로 두지 않는다.
 - `"user-id"` 같은 storage key나 header key를 호출부에 직접 쓰지 않는다.
 - 같은 숫자를 여러 곳에 복사하지 않는다. 같은 숫자가 우연히 같아도 의미가 다르면 다른 상수로 둔다.
-
