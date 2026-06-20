@@ -11,6 +11,7 @@
 - `rules/classnames/AGENTS.md`: `classnames` 기반 className 조합 규칙
 - `rules/eslint/AGENTS.md`: ESLint 필수 규칙과 검사 범위
 - `rules/constants/AGENTS.md`: 매직 넘버와 매직 문자열 상수화 규칙
+- `rules/design-tokens/AGENTS.md`: 색상, spacing, typography 같은 UI 토큰 규칙
 - `rules/architecture/AGENTS.md`: 엔트리 포인트, 책임 경계, side effect 격리 규칙
 
 ## 사용 방식

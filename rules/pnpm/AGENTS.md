@@ -8,6 +8,7 @@
 - `npm install`, `npm run`, `npx`, `yarn`, `bun install`을 금지한다.
 - `package-lock.json`, `yarn.lock`, `bun.lockb`를 만들지 않는다.
 - `pnpm-lock.yaml`은 커밋 대상이다.
+- `package.json`이 있는 앱과 패키지는 가능한 `"packageManager": "pnpm@<version>"`을 명시한다.
 
 ## 명령
 
@@ -15,6 +16,7 @@
 - 개발 의존성 추가는 `pnpm add -D <package>`를 사용한다.
 - 일회성 실행은 `pnpm exec <command>` 또는 `pnpm dlx <package>`를 사용한다.
 - CI 설치는 lockfile을 고정하는 명령을 사용한다.
+- README, docs, CI, 스크립트 예시는 pnpm 명령으로만 작성한다.
 
 ## script 계약
 
@@ -36,4 +38,3 @@
 - 빌드, 테스트, 타입, 린트 전용 패키지는 `devDependencies`에 둔다.
 - 새 의존성은 기존 유틸로 해결할 수 없는 경우에만 추가한다.
 - 버전 충돌 해결은 lockfile 수동 편집 대신 pnpm 명령으로 처리한다.
-

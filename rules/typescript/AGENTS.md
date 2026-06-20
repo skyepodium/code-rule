@@ -30,6 +30,8 @@
 
 - import는 `~/...` 절대경로를 기본으로 한다.
 - 같은 폴더 내부 파일만 `./file` 상대경로를 허용한다.
+- `~/...` alias는 TypeScript만이 아니라 bundler, test runner, native/metro/vite/webpack 설정까지 같은 의미로 맞춘다.
+- alias 설정이 없는 프로젝트에 절대경로 import를 추가할 때는 먼저 설정과 검증을 함께 추가한다.
 - 타입 전용 import는 `import type`을 사용한다.
 - 순환 의존성을 만들지 않는다. 발생하면 공통 타입이나 순수 유틸을 더 낮은 레이어로 분리한다.
 - 모듈 top-level 가변 싱글톤을 금지한다. 서비스는 인자, props, context, factory로 주입한다.

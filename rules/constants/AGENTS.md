@@ -47,6 +47,7 @@ export { VIEWPORT_TOOLTIP };
 - 언어 관용에 가까운 `0`, `1`, `-1`은 lint 설정에서 제한적으로 허용할 수 있다.
 - 빈 문자열, boolean literal, `null`, `undefined`는 매직 값 규칙 대신 타입과 도메인 의미로 판단한다.
 - CSS class token은 `classnames` 규칙을 따른다.
+- 색상, spacing, typography, radius, opacity 같은 시각 값은 디자인 토큰 규칙을 따른다.
 - HTTP method, route path, storage key, event name, query key는 도메인 문자열이므로 상수화한다.
 
 ## 금지 패턴

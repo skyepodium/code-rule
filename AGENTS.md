@@ -35,6 +35,7 @@
 - `any`는 금지한다. 외부 입력은 `unknown`으로 받고 narrowing 또는 schema 검증 후 사용한다.
 - 함수 선언문은 금지한다. `const functionName = (...) => {}` 형태의 화살표 함수 표현식을 사용한다.
 - import는 `~/...` 절대경로를 기본으로 한다. 같은 폴더 내부에서만 상대경로를 허용한다.
+- 새 TypeScript 프로젝트는 `tsconfig`, bundler, test runner가 모두 같은 `~/...` alias를 해석하도록 설정한다.
 - 중첩 조건문보다 guard clause와 early return을 우선한다. 실패, 권한 없음, 데이터 없음, 플랫폼 제외 같은 조건은 함수 앞에서 빠르게 반환한다.
 - catch 값은 `unknown`으로 취급하고 `instanceof Error` 또는 별도 narrowing 후 사용한다.
 - 빈 `catch`는 금지한다. 복구 전략이나 로깅 의도를 한국어 주석으로 남긴다.
@@ -57,6 +58,7 @@
 
 - 패키지 매니저는 pnpm만 사용한다.
 - `package-lock.json`, `yarn.lock`, npm/yarn 명령 도입을 금지한다.
+- 앱과 패키지는 가능한 `packageManager` 필드에 pnpm 버전을 명시한다.
 - 의존성 추가는 `pnpm add`, 개발 의존성 추가는 `pnpm add -D`를 사용한다.
 - PR 전에 기본적으로 `pnpm lint`, `pnpm typecheck`, 필요한 경우 `pnpm test`, `pnpm build`를 통과시킨다.
 
@@ -72,6 +74,13 @@
 - 상수는 `src/shared/constants/<domain>.ts`에 도메인별로 둔다.
 - 서로 강하게 관련된 상수가 3개 이상이면 기능 단위 객체로 묶고 `Object.freeze` 또는 `as const`로 불변 처리한다.
 - 호출부는 의미가 드러나게 `VIEWPORT_TOOLTIP.OFFSET_X_PX`처럼 접근한다.
+
+## 디자인 토큰
+
+- 색상, spacing, radius, typography, elevation, opacity, component 치수는 디자인 토큰으로 관리한다.
+- UI 컴포넌트에서 hex color, `rgba(...)`, font size, spacing, radius, opacity 같은 시각 값을 직접 선언하지 않는다.
+- 토큰은 `src/shared/design/tokens.ts` 또는 플랫폼별 design token 경계에 둔다.
+- 제품/도메인 상수와 디자인 토큰을 섞지 않는다. 예: polling interval은 constants, button radius는 design token이다.
 
 ## PR 규칙
 
