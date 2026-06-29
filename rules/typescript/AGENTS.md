@@ -18,9 +18,17 @@ This directory defines TypeScript and React TypeScript code rules. When copying 
 - Hooks use the form `const useThing = (...) => {}`.
 - If overloads are required, separate the type alias from the implementation function.
 
+## Naming Clarity
+
+- Unnecessary abbreviated variable names, function names, and type names are forbidden.
+- Use domain-specific names that explain intent at the call site.
+- Avoid vague names such as `data`, `item`, `temp`, `value`, `result`, and `handler` when the domain meaning is known.
+- Short loop or coordinate names such as `i`, `x`, and `y` are allowed only in tiny local scopes where their meaning is conventional and immediately obvious.
+- Do not shorten words just to reduce typing. Prefer `configuration`, `authentication`, `request`, `response`, `properties`, and `parameter` unless a framework contract requires a shorter name.
+
 ## Control Flow
 
-- Use guard clauses and early returns actively.
+- Use guard clauses and early returns as the default control-flow style.
 - Return quickly near the start of the function for failure, missing permission, missing data, platform exclusion, and disabled/no-op conditions.
 - Avoid `else` after `return`, `throw`, `continue`, or `break` so the happy path has less indentation.
 - If an early return condition contains domain knowledge, reveal its meaning with a boolean helper or named constant.

@@ -88,12 +88,14 @@ my-app/
 The rules are intentionally opinionated:
 
 - Prefer explicit boundaries over clever coupling.
+- Prefer strict layer separation over convenient cross-layer imports.
 - Prefer `unknown` plus validation over `any`.
 - Prefer arrow function expressions over function declarations.
 - Prefer pnpm-only workflows over mixed package manager usage.
 - Prefer constants and design tokens over inline magic values.
 - Prefer services, adapters, hooks, and pure utilities over bloated entry points.
 - Prefer tests and verification evidence before claiming completion.
+- Prefer lifecycle ownership, bounded memory use, and clear cleanup paths over implicit long-lived state.
 
 These defaults are designed to reduce ambiguous code review debates and give AI agents the same baseline a senior engineer would enforce manually.
 

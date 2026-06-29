@@ -9,6 +9,9 @@ This directory defines rules that forbid magic numbers and magic strings and man
 - Split files by domain. Examples: `viewport.ts`, `pagination.ts`, `route.ts`, `animation.ts`.
 - Do not put every value into a single `constants.ts`.
 - Do not write timeouts, intervals, animation durations, spring configs, gesture thresholds, hit slop, retry counts, page sizes, cache TTLs, vibration patterns, storage keys, route paths, event names, query keys, permission keys, or header keys directly at call sites.
+- If a value is meaningful but only local to one function, assign it to a named local constant instead of leaving the raw expression inline.
+- If a value is reused, shared across files, externally meaningful, or part of a domain contract, move it to a domain constants file.
+- Prefer adding a clear constant over relying on comments to explain a raw value.
 
 ## Naming Rules
 
@@ -40,6 +43,7 @@ export { VIEWPORT_TOOLTIP };
 - Call sites must access constants with clear meaning, such as `VIEWPORT_TOOLTIP.OFFSET_X_PX`.
 - Do not blur meaning with aliases when importing constants.
 - Constantize a value when intent matters, even if it is used in only one place.
+- Prefer a named variable for intermediate calculations when it makes the next line read like business logic.
 - Keep test fixture values as named constants inside the test file.
 
 ## Acceptable Inline Values
