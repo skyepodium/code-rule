@@ -8,6 +8,8 @@ This directory defines unit, integration, and component test rules.
 - For bug fixes, lock the symptom with a failing regression test before fixing it.
 - Test names must describe expected behavior. Do not use meaningless names like `works` or `test1`.
 - Tests verify public interfaces and user-observable behavior rather than implementation details.
+- Source-shape tests are allowed only as guardrails for architecture boundaries, generated code contracts, or known regression-prone wiring. They do not replace executable behavior tests for user-visible fixes.
+- When a source-shape test fails because the implementation improved, update the assertion to preserve the architectural intent instead of freezing old implementation details.
 
 ## Files and Fixtures
 
@@ -27,3 +29,4 @@ This directory defines unit, integration, and component test rules.
 
 - `pnpm test` must pass before a PR.
 - If tests are too slow, isolate the slow cause and split unit tests from integration tests.
+- For performance work, include the smallest regression guard that proves the intended allocation, invalidation, or cache behavior, plus a normal build/test gate.

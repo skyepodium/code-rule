@@ -9,6 +9,8 @@ This directory defines render, bundle, list, and native bridge performance rules
 - Optimize inline objects/functions only when there is an actual problem.
 - Do not keep derived state in memory when it can be computed cheaply from owned source state.
 - Avoid retaining large props, raw payloads, or closures longer than the component lifecycle requires.
+- Hot render, parser, input, native bridge, and IO loops must not allocate fresh buffers or large arrays per frame/event/read when stable reusable storage is practical.
+- Diagnostic fallbacks that force full redraws, full recomputation, or broad invalidation must be opt-in, named, and easy to disable after the original bug is covered by regression tests.
 
 ## Lists and Data
 
@@ -17,6 +19,7 @@ This directory defines render, bundle, list, and native bridge performance rules
 - Load images and assets at the required size.
 - Large in-memory datasets need pagination, windowing, indexing, or eviction strategy.
 - Cache entries must have clear keys, invalidation rules, and memory bounds or TTL.
+- Front-trimming large collections with repeated whole-array copies is forbidden in hot paths; use bounded stores, ring buffers, logical start indexes, or batched compaction.
 
 ## Bridge and IO
 

@@ -48,6 +48,7 @@ This directory defines project structure, entry points, side-effect boundaries, 
 - Avoid functions with many positional parameters; use a typed options object when the call is not self-explanatory.
 - Return domain results from services, not raw API responses, database rows, SDK objects, or UI-specific state.
 - Make failure modes explicit with typed errors, result objects, or documented exceptions at the boundary.
+- Views, controllers, and feature code should depend on project-owned protocols or adapters for platform backends such as shells, native handles, storage, rendering devices, push services, and SDK clients. Keep concrete platform implementations replaceable without changing the caller's behavior.
 
 ## File Size and Split Criteria
 

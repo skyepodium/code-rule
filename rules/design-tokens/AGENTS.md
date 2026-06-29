@@ -23,6 +23,8 @@ This directory defines UI visual values and design system token boundaries. In t
 - Do not alias token values again inside components or redefine them with names that blur meaning.
 - If the same number has different meanings, use different tokens. For example, even if screen gap and button padding are both `16`, do not combine them into one token.
 - When adding a temporary visual value, create a token first and then use it.
+- Themeable chrome must receive and propagate a theme object or token set through the view/component tree. Do not leave child tabs, panes, dividers, headers, or hover states pinned to raw base tokens after the parent becomes theme-aware.
+- Keep theme tokens role-based, not screen-specific. Prefer roles such as active tab background, divider, muted text, active indicator, and hover background over names tied to one component implementation.
 
 ## Platform-Specific UI
 
