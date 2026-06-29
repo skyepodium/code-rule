@@ -1,29 +1,29 @@
-# 테스트 규칙
+# Testing Rules
 
-이 디렉토리는 unit, integration, component 테스트 규칙을 정의한다.
+This directory defines unit, integration, and component test rules.
 
-## 기본 원칙
+## Basic Principles
 
-- 변경된 동작에는 테스트를 먼저 추가하거나 기존 테스트를 갱신한다.
-- 버그 수정은 실패하는 회귀 테스트로 증상을 고정한 뒤 고친다.
-- 테스트 이름은 기대 동작을 설명한다. `works`, `test1`처럼 의미 없는 이름을 쓰지 않는다.
-- 테스트는 구현 세부보다 public interface와 사용자 관찰 가능 동작을 검증한다.
+- Add tests first or update existing tests for changed behavior.
+- For bug fixes, lock the symptom with a failing regression test before fixing it.
+- Test names must describe expected behavior. Do not use meaningless names like `works` or `test1`.
+- Tests verify public interfaces and user-observable behavior rather than implementation details.
 
-## 파일과 fixture
+## Files and Fixtures
 
-- 테스트 파일은 대상 파일 옆의 `*.test.ts(x)` 또는 가까운 `__tests__/`에 둔다.
-- fixture 값도 매직 값이면 테스트 파일 안의 named constant로 둔다.
-- 대형 fixture는 builder 또는 fixture factory로 분리한다.
-- snapshot은 구조가 안정적이고 리뷰 가능한 경우에만 사용한다.
+- Place test files next to the target file as `*.test.ts(x)` or in a nearby `__tests__/`.
+- If fixture values are magic values, keep them as named constants inside the test file.
+- Split large fixtures into builders or fixture factories.
+- Use snapshots only when the structure is stable and reviewable.
 
-## mock
+## Mocks
 
-- mock은 외부 시스템, 시간, 랜덤, native bridge, 네트워크처럼 통제 불가능한 경계에만 사용한다.
-- 같은 프로세스의 순수 함수나 도메인 로직은 mock하지 않는다.
-- timer, interval, listener, subscription은 테스트 종료 시 cleanup한다.
-- 비동기 테스트는 pending promise와 open handle을 남기지 않는다.
+- Mock only uncontrollable boundaries such as external systems, time, randomness, native bridges, and networks.
+- Do not mock pure functions or domain logic in the same process.
+- Clean up timers, intervals, listeners, and subscriptions at the end of tests.
+- Async tests must not leave pending promises or open handles.
 
-## 검증
+## Verification
 
-- PR 전 `pnpm test`를 통과시킨다.
-- 테스트가 너무 느리면 느린 원인을 분리하고 unit 테스트와 integration 테스트를 나눈다.
+- `pnpm test` must pass before a PR.
+- If tests are too slow, isolate the slow cause and split unit tests from integration tests.

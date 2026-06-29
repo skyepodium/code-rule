@@ -1,24 +1,24 @@
-# ESLint 규칙
+# ESLint Rules
 
-이 디렉토리는 ESLint 설정과 검사 범위 규칙을 정의한다. 대상 프로젝트에서는 루트 또는 lint 설정 파일이 있는 디렉토리에 둔다.
+This directory defines ESLint configuration and lint scope rules. In target projects, place it at the root or in the directory that contains lint configuration files.
 
-## 필수 검사
+## Required Checks
 
-- PR 전 `pnpm lint`를 통과해야 한다.
-- TypeScript 프로젝트는 `pnpm typecheck`도 통과해야 한다.
-- lint 대상은 직접 관리하는 앱 소스와 설정 파일로 한정한다.
-- `dist`, `build`, `.next`, `coverage`, `node_modules`, generated 파일은 검사 대상에서 제외한다.
+- `pnpm lint` must pass before a PR.
+- TypeScript projects must also pass `pnpm typecheck`.
+- Limit lint targets to directly managed app source and configuration files.
+- Exclude `dist`, `build`, `.next`, `coverage`, `node_modules`, and generated files from lint targets.
 
-## 필수 규칙 의도
+## Required Rule Intent
 
-- 함수 선언문을 금지하고 화살표 함수 표현식을 강제한다.
-- `any`를 금지한다.
-- 매직 넘버와 매직 문자열 도입을 금지한다.
-- 미사용 변수와 미사용 import를 금지한다.
-- React hook 규칙을 강제한다.
-- import 순서와 type-only import를 일관되게 유지한다.
+- Forbid function declarations and enforce arrow function expressions.
+- Forbid `any`.
+- Forbid introducing magic numbers and magic strings.
+- Forbid unused variables and unused imports.
+- Enforce React hook rules.
+- Keep import order and type-only imports consistent.
 
-## 권장 rule 모양
+## Recommended Rule Shape
 
 ```js
 {
@@ -40,16 +40,15 @@
 }
 ```
 
-## disable 주석
+## Disable Comments
 
-- `eslint-disable`은 마지막 수단이다.
-- disable 바로 위에는 한국어로 이유와 제거 조건을 적는다.
-- 파일 전체 disable은 금지한다. 꼭 필요하면 별도 이슈나 PR로 분리한다.
-- generated 파일은 disable 대신 ignore 범위에 넣는다.
+- `eslint-disable` is a last resort.
+- Immediately above the disable, write the reason and removal condition in English.
+- File-wide disables are forbidden. If they are truly necessary, split them into a separate issue or PR.
+- Put generated files in the ignore scope instead of disabling lint.
 
-## Next.js 프로젝트
+## Next.js Projects
 
-- Next 공식 lint 설정 또는 프로젝트 표준 flat config 위에 팀 규칙을 얹는다.
-- App Router 파일 convention 때문에 필요한 예외는 파일 glob 단위로 좁게 둔다.
-- lint rule을 완화할 때는 어떤 코드 패턴 때문에 필요한지 예시를 남긴다.
-
+- Layer team rules on top of the official Next lint configuration or the project's standard flat config.
+- Keep exceptions required by App Router file conventions narrow and scoped by file glob.
+- When relaxing lint rules, leave examples of the code patterns that require it.

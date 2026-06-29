@@ -1,20 +1,20 @@
-# 문서 규칙
+# Documentation Rules
 
-이 디렉토리는 README, ADR, runbook, 개발 문서 규칙을 정의한다.
+This directory defines README, ADR, runbook, and development documentation rules.
 
 ## README
 
-- README에는 설치, 실행, 검증, 환경 변수, 주요 구조를 포함한다.
-- 명령 예시는 프로젝트 패키지 매니저를 따른다.
-- 오래된 템플릿 문구와 사용하지 않는 명령을 남기지 않는다.
+- README files must include installation, execution, verification, environment variables, and the main structure.
+- Command examples must follow the project's package manager.
+- Do not leave stale template text or unused commands.
 
-## 설계 문서
+## Design Documents
 
-- 중요한 아키텍처 결정은 의도, 대안, 결정, 영향으로 기록한다.
-- 임시 제약과 제거 조건을 명시한다.
-- 문서가 코드와 어긋나면 같은 변경에서 갱신한다.
+- Record important architecture decisions with intent, alternatives, decision, and impact.
+- Specify temporary constraints and removal conditions.
+- If documentation diverges from code, update it in the same change.
 
-## 운영 문서
+## Operations Documents
 
-- 배포, rollback, migration, incident 대응 절차는 실행 가능한 명령과 확인 방법을 포함한다.
-- 민감한 secret 값은 문서에 직접 쓰지 않는다.
+- Deployment, rollback, migration, and incident response procedures must include executable commands and verification methods.
+- Do not write sensitive secret values directly in documentation.

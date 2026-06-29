@@ -1,21 +1,21 @@
-# 반응형 레이아웃 규칙
+# Responsive Layout Rules
 
-이 디렉토리는 화면 크기, safe area, overflow 규칙을 정의한다.
+This directory defines screen size, safe area, and overflow rules.
 
-## 레이아웃
+## Layout
 
-- 고정 width/height는 fixed-format UI에만 사용하고 responsive constraint를 함께 둔다.
-- 화면 padding, gap, breakpoint는 디자인 토큰으로 관리한다.
-- safe area, notch, status bar, navigation bar 영역을 고려한다.
-- keyboard가 뜨는 화면은 입력 필드와 submit 버튼이 가려지지 않게 설계한다.
+- Use fixed width/height only for fixed-format UI, and include responsive constraints.
+- Manage screen padding, gaps, and breakpoints with design tokens.
+- Consider safe areas, notches, status bars, and navigation bar regions.
+- Design screens with keyboards so input fields and submit buttons are not obscured.
 
-## 텍스트
+## Text
 
-- 텍스트가 컨테이너를 넘치거나 다른 UI를 덮지 않게 한다.
-- 긴 단어, 번역 문자열, dynamic type을 고려한다.
-- viewport width에 직접 비례해 font size를 조절하지 않는다.
+- Ensure text does not overflow its container or cover other UI.
+- Consider long words, translated strings, and dynamic type.
+- Do not adjust font size directly in proportion to viewport width.
 
-## 상태
+## States
 
-- loading, empty, error 상태에서도 레이아웃 shift가 과도하지 않게 한다.
-- hover/focus/pressed 상태가 요소 크기를 바꾸지 않게 한다.
+- Avoid excessive layout shift in loading, empty, and error states.
+- Ensure hover/focus/pressed states do not change element size.

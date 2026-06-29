@@ -1,24 +1,24 @@
-# React Native 규칙
+# React Native Rules
 
-이 디렉토리는 React Native 앱, platform 분기, native bridge 규칙을 정의한다.
+This directory defines React Native app, platform branch, and native bridge rules.
 
-## 구조
+## Structure
 
-- `App.tsx`, `index.js`, native app delegate/activity는 bootstrap과 wiring만 담당한다.
-- native bridge 직접 접근은 adapter에 격리한다.
-- 권한, AppState, Linking, DeviceEventEmitter, NativeModules 같은 platform side effect는 service 또는 adapter 경계에서 감싼다.
-- 플랫폼 분기는 가능한 `*.ios.ts`, `*.android.ts` 또는 platform adapter에 모은다.
+- `App.tsx`, `index.js`, and native app delegate/activity are responsible only for bootstrap and wiring.
+- Isolate direct native bridge access in adapters.
+- Wrap platform side effects such as permissions, AppState, Linking, DeviceEventEmitter, and NativeModules at service or adapter boundaries.
+- Collect platform branches in `*.ios.ts`, `*.android.ts`, or platform adapters when possible.
 
 ## UI
 
-- 시각 값은 디자인 토큰을 사용한다.
-- `StyleSheet.create`를 기본으로 사용하고 inline style은 동적 값이 필요한 좁은 범위에만 둔다.
-- touch target, safe area, keyboard avoidance, text overflow를 기본 검토한다.
-- list는 데이터 규모가 커질 수 있으면 virtualization을 전제로 설계한다.
+- Use design tokens for visual values.
+- Use `StyleSheet.create` by default, and keep inline styles only for narrow cases requiring dynamic values.
+- Review touch target, safe area, keyboard avoidance, and text overflow by default.
+- Design lists with virtualization in mind when data size can grow.
 
-## native 연동
+## Native Integration
 
-- native module 이름, event name, permission key는 상수화한다.
-- native listener 등록은 중복 등록 방지와 cleanup API를 가진다.
-- bridge로 주고받는 payload는 TypeScript 타입과 native parsing 경계를 함께 관리한다.
-- Android/iOS native 구현은 JS 서비스 계약을 깨지 않게 adapter 뒤에 숨긴다.
+- Constantize native module names, event names, and permission keys.
+- Native listener registration must prevent duplicate registration and provide cleanup APIs.
+- Manage bridge payloads together with TypeScript types and native parsing boundaries.
+- Hide Android/iOS native implementations behind adapters so they do not break the JS service contract.

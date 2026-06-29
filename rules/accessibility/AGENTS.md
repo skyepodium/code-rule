@@ -1,22 +1,22 @@
-# 접근성 규칙
+# Accessibility Rules
 
-이 디렉토리는 UI 접근성 기본 규칙을 정의한다.
+This directory defines baseline UI accessibility rules.
 
-## 기본
+## Basics
 
-- 상호작용 요소는 접근성 label과 role을 가진다.
-- icon-only 버튼은 보이는 tooltip 또는 접근성 label을 제공한다.
-- disabled/loading 상태는 시각 상태와 accessibility state에 함께 반영한다.
-- 중요한 상태 변화는 screen reader가 알 수 있는 경로를 둔다.
+- Interactive elements must have accessibility labels and roles.
+- Icon-only buttons must provide a visible tooltip or an accessibility label.
+- Disabled/loading states must be reflected in both visual state and accessibility state.
+- Important state changes must have a path that screen readers can perceive.
 
-## 입력과 포커스
+## Input and Focus
 
-- form field는 label, error, hint 관계를 명확히 한다.
-- modal, drawer, dialog는 focus trap과 닫기 동작을 가진다.
-- keyboard navigation 순서는 화면의 시각 순서와 일치해야 한다.
+- Form fields must clearly define the relationship between labels, errors, and hints.
+- Modals, drawers, and dialogs must have focus traps and close behavior.
+- Keyboard navigation order must match the visual order of the screen.
 
-## 시각
+## Visuals
 
-- 텍스트 대비를 확인하고 토큰으로 관리한다.
-- touch target은 플랫폼 권장 최소 크기를 만족한다.
-- motion은 reduced motion 설정을 존중한다.
+- Check text contrast and manage it with tokens.
+- Touch targets must meet the platform-recommended minimum size.
+- Motion must respect reduced-motion settings.

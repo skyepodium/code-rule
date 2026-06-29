@@ -1,22 +1,22 @@
-# Navigation 규칙
+# Navigation Rules
 
-이 디렉토리는 route, navigation params, deep link 규칙을 정의한다.
+This directory defines route, navigation params, and deep link rules.
 
-## route
+## Routes
 
-- route path/name은 상수화한다.
-- route params 타입을 명시한다.
-- 화면 컴포넌트는 params parsing을 adapter/helper로 분리한다.
-- optional param은 fallback과 invalid state를 처리한다.
+- Constantize route paths/names.
+- Explicitly type route params.
+- Screen components must split params parsing into adapters/helpers.
+- Optional params must handle fallbacks and invalid states.
 
-## 이동
+## Navigation
 
-- 내부 이동은 프로젝트 표준 navigation API를 사용한다.
-- push/replace/back/reset의 의미를 구분한다.
-- auth guard, permission guard, onboarding guard는 한 경계에 모은다.
+- Use the project's standard navigation API for internal navigation.
+- Distinguish the meaning of push, replace, back, and reset.
+- Collect authentication guards, permission guards, and onboarding guards in one boundary.
 
-## deep link
+## Deep Links
 
-- deep link schema와 route mapping을 문서화한다.
-- 알 수 없는 deep link는 안전한 fallback으로 보낸다.
-- 외부 URL open 전 allowlist 또는 scheme 검증을 한다.
+- Document deep link schemas and route mapping.
+- Send unknown deep links to a safe fallback.
+- Before opening external URLs, validate them with an allowlist or scheme check.

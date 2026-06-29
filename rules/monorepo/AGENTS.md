@@ -1,22 +1,22 @@
-# Monorepo 규칙
+# Monorepo Rules
 
-이 디렉토리는 workspace, package boundary, internal import 규칙을 정의한다.
+This directory defines workspace, package boundary, and internal import rules.
 
-## workspace
+## Workspace
 
-- workspace 범위는 `pnpm-workspace.yaml`에 명시한다.
-- package 이름, ownership, publish/private 여부를 명확히 한다.
-- 루트 dependency와 package dependency를 구분한다.
+- Specify workspace scope in `pnpm-workspace.yaml`.
+- Make package names, ownership, and publish/private status clear.
+- Distinguish root dependencies from package dependencies.
 
-## package boundary
+## Package Boundaries
 
-- 다른 package의 내부 파일을 deep import하지 않는다.
-- public entry point를 통해 import한다.
-- shared package는 앱 세부 구현을 import하지 않는다.
-- 순환 dependency가 생기면 공통 타입/utility를 더 낮은 package로 분리한다.
+- Do not deep import internal files from other packages.
+- Import through public entry points.
+- Shared packages must not import app implementation details.
+- If a circular dependency appears, move common types/utilities to a lower-level package.
 
-## scripts
+## Scripts
 
-- root script는 workspace 전체 계약을 담당한다.
-- package script는 해당 package 안에서 독립 실행 가능해야 한다.
-- generated output 위치와 커밋 여부를 package별로 명시한다.
+- Root scripts own the contract for the whole workspace.
+- Package scripts must be independently executable within that package.
+- Specify generated output locations and commit policy per package.

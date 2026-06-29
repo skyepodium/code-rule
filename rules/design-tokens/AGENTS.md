@@ -1,37 +1,37 @@
-# 디자인 토큰 규칙
+# Design Token Rules
 
-이 디렉토리는 UI 시각 값과 디자인 시스템 토큰 경계를 정의한다. 대상 프로젝트에서는 `src/`, `app/`, `features/`, `components/`처럼 UI 코드가 있는 가장 가까운 디렉토리에 둔다.
+This directory defines UI visual values and design system token boundaries. In target projects, place it in the closest directory with UI code, such as `src/`, `app/`, `features/`, or `components/`.
 
-## 기본 규칙
+## Basic Rules
 
-- 색상, spacing, radius, typography, elevation, opacity, z-index, component 치수는 디자인 토큰으로 관리한다.
-- UI 컴포넌트에서 hex color, `rgba(...)`, font size, spacing, radius, opacity 값을 직접 선언하지 않는다.
-- 토큰은 `src/shared/design/tokens.ts` 또는 플랫폼별 design token 경계에 둔다.
-- 토큰 파일은 제품 UI 언어를 표현하고, API path, storage key, timeout 같은 도메인 상수와 섞지 않는다.
+- Manage colors, spacing, radius, typography, elevation, opacity, z-index, and component dimensions as design tokens.
+- Do not declare hex colors, `rgba(...)`, font size, spacing, radius, or opacity values directly in UI components.
+- Place tokens in `src/shared/design/tokens.ts` or a platform-specific design token boundary.
+- Token files express the product UI language and must not be mixed with domain constants such as API paths, storage keys, or timeouts.
 
-## 토큰 분류
+## Token Categories
 
-- 색상은 `COLOR_TOKENS`처럼 역할 기반 이름을 사용한다. 예: `SURFACE_PANEL`, `CONTENT_PRIMARY`, `ACCENT_PRIMARY`.
-- spacing은 `SPACE_TOKENS`로 관리하고 화면 padding, gap, compact spacing을 의미 이름으로 둔다.
-- radius는 `RADIUS_TOKENS`로 관리한다.
-- typography는 `TYPOGRAPHY_TOKENS`로 관리하고 단위가 있는 이름을 사용한다.
-- 특정 컴포넌트의 고정 치수는 `COMPONENT_TOKENS`로 관리한다.
+- Use role-based names for colors, such as `COLOR_TOKENS`. Examples: `SURFACE_PANEL`, `CONTENT_PRIMARY`, `ACCENT_PRIMARY`.
+- Manage spacing with `SPACE_TOKENS`, using meaningful names for screen padding, gaps, and compact spacing.
+- Manage radius with `RADIUS_TOKENS`.
+- Manage typography with `TYPOGRAPHY_TOKENS`, using names that include units.
+- Manage fixed dimensions for specific components with `COMPONENT_TOKENS`.
 
-## 호출부 규칙
+## Call-Site Rules
 
-- 컴포넌트는 토큰을 import해 사용한다.
-- 컴포넌트 내부에서 토큰 값을 다시 alias하거나 의미를 흐리는 이름으로 재정의하지 않는다.
-- 동일 숫자라도 의미가 다르면 다른 토큰으로 둔다. 예: 화면 gap과 버튼 padding이 모두 `16`이어도 같은 토큰으로 묶지 않는다.
-- 임시 시각 값을 추가할 때도 먼저 토큰을 만든 뒤 사용한다.
+- Components import and use tokens.
+- Do not alias token values again inside components or redefine them with names that blur meaning.
+- If the same number has different meanings, use different tokens. For example, even if screen gap and button padding are both `16`, do not combine them into one token.
+- When adding a temporary visual value, create a token first and then use it.
 
-## 플랫폼별 UI
+## Platform-Specific UI
 
-- React Native, Android native, iOS native처럼 플랫폼별 UI가 있으면 각 플랫폼에 대응하는 token 경계를 둔다.
-- native UI에도 색상과 치수를 직접 쓰지 않는다. 플랫폼 언어의 token object 또는 resource를 통해 사용한다.
-- cross-platform 토큰과 native 전용 토큰이 갈라질 때는 이름과 역할이 대응되게 유지한다.
+- If platform-specific UI exists, such as React Native, Android native, or iOS native, provide token boundaries for each platform.
+- Do not write colors or dimensions directly in native UI either. Use the platform language's token object or resources.
+- When cross-platform tokens and native-only tokens diverge, keep their names and roles aligned.
 
-## 금지 패턴
+## Forbidden Patterns
 
-- `style={{ color: '#ffffff' }}`처럼 컴포넌트에 색상을 직접 쓰지 않는다.
-- `fontSize: 16`, `borderRadius: 8`, `opacity: 0.72`처럼 시각 값을 style에 직접 쓰지 않는다.
-- `constants.ts`에 디자인 토큰과 비즈니스 상수를 함께 넣지 않는다.
+- Do not write colors directly in components, such as `style={{ color: '#ffffff' }}`.
+- Do not write visual values directly in styles, such as `fontSize: 16`, `borderRadius: 8`, or `opacity: 0.72`.
+- Do not put design tokens and business constants together in `constants.ts`.

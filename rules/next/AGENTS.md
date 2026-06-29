@@ -1,46 +1,45 @@
-# Next.js 규칙
+# Next.js Rules
 
-이 디렉토리는 Next.js App Router 프로젝트 규칙을 정의한다. 대상 프로젝트에서는 `app/` 또는 `src/app/` 아래에 둔다.
+This directory defines rules for Next.js App Router projects. In target projects, place it under `app/` or `src/app/`.
 
-## 라우팅 모델
+## Routing Model
 
-- App Router를 기본으로 사용한다.
-- `pages/` 라우터와 App Router를 새 기능에서 섞지 않는다.
-- `page.tsx`는 화면 조립, `layout.tsx`는 공통 레이아웃, `route.ts`는 HTTP 경계만 담당한다.
-- `loading.tsx`, `error.tsx`, `not-found.tsx`는 해당 segment의 상태 UI만 담당한다.
+- Use App Router by default.
+- Do not mix the `pages/` router with App Router for new features.
+- `page.tsx` handles screen composition, `layout.tsx` handles common layout, and `route.ts` handles only HTTP boundaries.
+- `loading.tsx`, `error.tsx`, and `not-found.tsx` handle only state UI for the corresponding segment.
 
-## 서버 컴포넌트와 클라이언트 컴포넌트
+## Server Components and Client Components
 
-- 서버 컴포넌트를 기본값으로 한다.
-- `"use client"`는 상호작용, browser API, React state/effect가 필요한 가장 작은 leaf 컴포넌트에만 둔다.
-- 클라이언트 컴포넌트 props는 직렬화 가능한 값만 받는다.
-- 서버 전용 코드, secret, database client는 클라이언트 번들로 들어가지 않게 분리한다.
-- provider는 가능한 깊게 배치해 정적 서버 렌더링 범위를 넓힌다.
+- Use server components by default.
+- Place `"use client"` only on the smallest leaf component that needs interaction, browser APIs, or React state/effects.
+- Client component props must be serializable values.
+- Separate server-only code, secrets, and database clients so they do not enter the client bundle.
+- Place providers as deep as possible to broaden the static server rendering scope.
 
-## 데이터 접근
+## Data Access
 
-- 서버에서 가져올 수 있는 데이터는 서버 컴포넌트, server action, route handler에서 가져온다.
-- 클라이언트에서 직접 외부 API secret을 다루지 않는다.
-- `fetch` cache, revalidate, runtime 설정은 파일 상단 상수로 명시하고 매직 넘버를 남기지 않는다.
-- 요청과 응답 타입은 명시하고 외부 응답은 검증 후 사용한다.
+- Fetch data that can be fetched on the server from server components, server actions, or route handlers.
+- Do not handle external API secrets directly on the client.
+- Declare `fetch` cache, revalidate, and runtime settings as top-of-file constants, and do not leave magic numbers.
+- Explicitly type requests and responses, and validate external responses before use.
 
-## 라우트 핸들러
+## Route Handlers
 
-- 라우트 핸들러 파일명은 `route.ts`를 사용한다.
-- 함수 선언문 대신 `export const GET = async (...) => {}`처럼 화살표 함수 표현식으로 작성한다.
-- `NextApiRequest`, `NextApiResponse`는 App Router route handler에서 사용하지 않는다.
-- 응답 상태 코드, cache TTL, header 이름은 상수화한다.
-- 여러 HTTP method가 한 파일에 있으면 공통 로직을 순수 함수로 분리한다.
+- Route handler files must be named `route.ts`.
+- Use arrow function expressions such as `export const GET = async (...) => {}` instead of function declarations.
+- Do not use `NextApiRequest` or `NextApiResponse` in App Router route handlers.
+- Constantize response status codes, cache TTLs, and header names.
+- If one file contains multiple HTTP methods, split common logic into pure functions.
 
-## 메타데이터와 SEO
+## Metadata and SEO
 
-- 정적 메타데이터는 `metadata` export로 둔다.
-- 동적 메타데이터는 `generateMetadata`를 화살표 함수 표현식으로 작성한다.
-- title, description, Open Graph 문자열이 반복되면 상수 또는 config로 분리한다.
+- Put static metadata in a `metadata` export.
+- Write dynamic metadata with `generateMetadata` as an arrow function expression.
+- If title, description, or Open Graph strings repeat, split them into constants or config.
 
-## Next 내장 컴포넌트
+## Built-In Next Components
 
-- 내부 이동은 `next/link`를 사용한다.
-- 이미지 최적화가 필요한 이미지에는 `next/image`를 우선 사용한다.
-- 폰트는 Next font 또는 프로젝트 표준 로딩 경로를 따른다.
-
+- Use `next/link` for internal navigation.
+- Prefer `next/image` for images that need optimization.
+- Fonts must follow Next font or the project's standard loading path.

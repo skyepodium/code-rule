@@ -1,22 +1,22 @@
-# 보안과 개인정보 규칙
+# Security and Privacy Rules
 
-이 디렉토리는 secret, 권한, 개인정보, 외부 SDK 규칙을 정의한다.
+This directory defines secret, permission, privacy, and external SDK rules.
 
-## secret
+## Secrets
 
-- secret, token, private key, service account JSON은 커밋하지 않는다.
-- `.env.example`에는 실제 값 대신 placeholder를 둔다.
-- public env prefix와 private env prefix를 구분한다.
-- secret이 노출되면 코드 수정과 별개로 회전이 필요하다고 명시한다.
+- Do not commit secrets, tokens, private keys, or service account JSON.
+- Put placeholders instead of real values in `.env.example`.
+- Distinguish public env prefixes from private env prefixes.
+- If a secret is exposed, state that rotation is needed separately from code changes.
 
-## 개인정보
+## Privacy
 
-- PII를 로그, analytics, crash report에 원문으로 남기지 않는다.
-- 사용자 식별자는 필요한 범위에서만 전달하고 masking/hash 정책을 둔다.
-- 권한 요청 문구는 필요한 기능과 사용 목적을 설명한다.
+- Do not leave raw PII in logs, analytics, or crash reports.
+- Pass user identifiers only within the necessary scope, and define masking/hash policies.
+- Permission request text must explain the required feature and usage purpose.
 
-## 외부 SDK
+## External SDKs
 
-- 외부 SDK 추가 전 수집 데이터, 권한, network endpoint, license를 확인한다.
-- tracking, ads, analytics SDK는 opt-in/consent 요구사항을 검토한다.
-- 보안 관련 로직은 client-only 검증에 의존하지 않는다.
+- Before adding an external SDK, check collected data, permissions, network endpoints, and license.
+- Review opt-in/consent requirements for tracking, ads, and analytics SDKs.
+- Security-related logic must not rely on client-only validation.

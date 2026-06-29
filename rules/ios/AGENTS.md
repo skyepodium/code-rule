@@ -1,21 +1,21 @@
-# iOS 규칙
+# iOS Rules
 
-이 디렉토리는 iOS native 코드와 설정 규칙을 정의한다.
+This directory defines rules for iOS native code and configuration.
 
-## Info.plist와 권한
+## Info.plist and Permissions
 
-- permission usage description은 기능 목적을 명확히 설명한다.
-- entitlement, background mode, capability 추가 시 필요성과 배포 영향을 문서화한다.
-- private API에 의존하지 않는다.
+- Permission usage descriptions must clearly explain the feature purpose.
+- When adding entitlements, background modes, or capabilities, document the need and deployment impact.
+- Do not rely on private APIs.
 
 ## Swift/Objective-C
 
-- AppDelegate/SceneDelegate는 bootstrap과 wiring만 담당한다.
-- native bridge는 작은 module로 나누고 JS contract를 명시한다.
-- thread, callback, observer는 lifecycle에 맞춰 정리한다.
-- UI 시각 값은 token/resource 경계를 통해 사용한다.
+- AppDelegate/SceneDelegate are responsible only for bootstrap and wiring.
+- Split native bridges into small modules and specify the JS contract.
+- Clean up threads, callbacks, and observers according to the lifecycle.
+- Use UI visual values through token/resource boundaries.
 
-## 배포
+## Deployment
 
-- bundle id, signing, provisioning 변경은 별도 위험으로 기록한다.
-- background execution은 Apple이 허용하는 mode 안에서만 설계한다.
+- Record bundle ID, signing, and provisioning changes as separate risks.
+- Design background execution only within modes Apple allows.

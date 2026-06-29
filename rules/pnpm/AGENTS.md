@@ -1,40 +1,40 @@
-# pnpm 규칙
+# pnpm Rules
 
-이 디렉토리는 pnpm 기반 패키지 관리 규칙을 정의한다. 대상 프로젝트에서는 루트 또는 workspace 루트에 둔다.
+This directory defines pnpm-based package management rules. In target projects, place it at the root or workspace root.
 
-## 패키지 매니저
+## Package Manager
 
-- 패키지 매니저는 pnpm만 사용한다.
-- `npm install`, `npm run`, `npx`, `yarn`, `bun install`을 금지한다.
-- `package-lock.json`, `yarn.lock`, `bun.lockb`를 만들지 않는다.
-- `pnpm-lock.yaml`은 커밋 대상이다.
-- `package.json`이 있는 앱과 패키지는 가능한 `"packageManager": "pnpm@<version>"`을 명시한다.
+- Use pnpm as the only package manager.
+- Forbid `npm install`, `npm run`, `npx`, `yarn`, and `bun install`.
+- Do not create `package-lock.json`, `yarn.lock`, or `bun.lockb`.
+- `pnpm-lock.yaml` is committed.
+- Apps and packages with `package.json` should specify `"packageManager": "pnpm@<version>"` when possible.
 
-## 명령
+## Commands
 
-- 의존성 추가는 `pnpm add <package>`를 사용한다.
-- 개발 의존성 추가는 `pnpm add -D <package>`를 사용한다.
-- 일회성 실행은 `pnpm exec <command>` 또는 `pnpm dlx <package>`를 사용한다.
-- CI 설치는 lockfile을 고정하는 명령을 사용한다.
-- README, docs, CI, 스크립트 예시는 pnpm 명령으로만 작성한다.
+- Use `pnpm add <package>` to add dependencies.
+- Use `pnpm add -D <package>` to add development dependencies.
+- Use `pnpm exec <command>` or `pnpm dlx <package>` for one-off execution.
+- CI installation must use a command that pins the lockfile.
+- README, docs, CI, and script examples must use pnpm commands only.
 
-## script 계약
+## Script Contract
 
-- 기본 script 이름은 `lint`, `typecheck`, `test`, `build`, `format`을 사용한다.
-- Next 앱은 최소한 `pnpm lint`, `pnpm typecheck`, `pnpm build`가 동작해야 한다.
-- script 안에서 OS별 shell 기능에 의존하지 않는다.
-- script가 길어지면 별도 TypeScript 또는 JavaScript 스크립트 파일로 분리한다.
+- Use `lint`, `typecheck`, `test`, `build`, and `format` as default script names.
+- Next apps must support at least `pnpm lint`, `pnpm typecheck`, and `pnpm build`.
+- Scripts must not depend on OS-specific shell features.
+- If a script becomes long, split it into a separate TypeScript or JavaScript script file.
 
-## workspace
+## Workspace
 
-- monorepo는 `pnpm-workspace.yaml`로 workspace 범위를 명시한다.
-- workspace 내부 패키지 참조는 가능한 `workspace:*` 프로토콜을 사용한다.
-- 루트에 의존성을 추가할 때는 실제로 루트에서 필요한지 먼저 확인한다.
-- 앱 전용 의존성은 해당 앱 package에 둔다.
+- Monorepos specify workspace scope with `pnpm-workspace.yaml`.
+- Use the `workspace:*` protocol for internal workspace package references when possible.
+- Before adding dependencies to the root, first confirm they are actually needed at the root.
+- App-only dependencies belong in that app package.
 
-## 의존성 기준
+## Dependency Standards
 
-- 런타임 코드에서 import되는 패키지는 `dependencies`에 둔다.
-- 빌드, 테스트, 타입, 린트 전용 패키지는 `devDependencies`에 둔다.
-- 새 의존성은 기존 유틸로 해결할 수 없는 경우에만 추가한다.
-- 버전 충돌 해결은 lockfile 수동 편집 대신 pnpm 명령으로 처리한다.
+- Packages imported by runtime code belong in `dependencies`.
+- Build-, test-, type-, and lint-only packages belong in `devDependencies`.
+- Add new dependencies only when existing utilities cannot solve the problem.
+- Resolve version conflicts with pnpm commands instead of manually editing the lockfile.

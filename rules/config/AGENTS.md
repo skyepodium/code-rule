@@ -1,22 +1,22 @@
-# Config 규칙
+# Config Rules
 
-이 디렉토리는 환경 변수, runtime config, feature flag 규칙을 정의한다.
+This directory defines environment variable, runtime config, and feature flag rules.
 
-## 환경 변수
+## Environment Variables
 
-- env 이름은 영어 대문자와 `_`를 사용한다.
-- public client env와 private server env prefix를 구분한다.
-- `.env.example` 또는 문서에 필요한 key와 의미를 기록한다.
-- env 값은 startup 경계에서 검증하고 typed config로 변환한다.
+- Env names must use uppercase English letters and `_`.
+- Distinguish public client env prefixes from private server env prefixes.
+- Record required keys and their meaning in `.env.example` or documentation.
+- Validate env values at the startup boundary and convert them to typed config.
 
-## runtime/build config
+## Runtime/Build Config
 
-- build-time config와 runtime config를 섞지 않는다.
-- platform별 config는 adapter나 platform config 파일로 분리한다.
-- config 기본값은 상수화하고 숨은 fallback을 만들지 않는다.
+- Do not mix build-time config with runtime config.
+- Split platform-specific config into adapters or platform config files.
+- Constantize config defaults and do not create hidden fallbacks.
 
-## feature flag
+## Feature Flags
 
-- flag 이름, owner, 제거 조건을 문서화한다.
-- 임시 flag는 제거 시점을 명시한다.
-- flag 분기는 가능한 경계 컴포넌트나 service에 모은다.
+- Document each flag's name, owner, and removal condition.
+- Specify removal timing for temporary flags.
+- Collect flag branches in boundary components or services when possible.

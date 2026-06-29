@@ -1,20 +1,20 @@
-# Tailwind 규칙
+# Tailwind Rules
 
-이 디렉토리는 Tailwind class와 token 사용 규칙을 정의한다.
+This directory defines Tailwind class and token usage rules.
 
-## class 작성
+## Writing Classes
 
-- 조건부 class 조합은 `classnames` 또는 프로젝트 표준 `cn` wrapper를 사용한다.
-- arbitrary value는 디자인 토큰에 없는 일회성 예외에만 사용하고 이유를 남긴다.
-- 긴 className은 의미 있는 컴포넌트나 variant helper로 분리한다.
+- Use `classnames` or the project's standard `cn` wrapper for conditional class composition.
+- Use arbitrary values only as one-off exceptions absent from design tokens, and leave the reason.
+- Split long `className` values into meaningful components or variant helpers.
 
-## token
+## Tokens
 
-- 색상, spacing, radius, typography는 Tailwind config와 디자인 토큰을 맞춘다.
-- raw hex color를 className arbitrary value로 직접 쓰지 않는다.
-- variant 이름은 시각 값보다 의미를 드러낸다.
+- Align colors, spacing, radius, and typography between Tailwind config and design tokens.
+- Do not write raw hex colors directly as arbitrary values in `className`.
+- Variant names should reveal meaning rather than visual values.
 
-## 금지
+## Forbidden
 
-- 조건부 template literal로 className을 조립하지 않는다.
-- Tailwind class와 inline style에 같은 시각 값을 중복 정의하지 않는다.
+- Do not compose className with conditional template literals.
+- Do not duplicate the same visual value in both Tailwind classes and inline styles.

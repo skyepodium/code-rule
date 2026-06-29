@@ -1,21 +1,21 @@
-# Performance 규칙
+# Performance Rules
 
-이 디렉토리는 render, bundle, list, native bridge 성능 규칙을 정의한다.
+This directory defines render, bundle, list, and native bridge performance rules.
 
-## 렌더링
+## Rendering
 
-- memoization은 측정 가능한 re-render 비용이 있을 때 사용한다.
-- 큰 계산은 render path에서 분리하고 필요하면 memoized selector를 사용한다.
-- inline 객체/함수 최적화는 실제 문제가 있을 때 적용한다.
+- Use memoization when there is measurable re-render cost.
+- Split large calculations out of the render path, and use memoized selectors when needed.
+- Optimize inline objects/functions only when there is an actual problem.
 
-## 리스트와 데이터
+## Lists and Data
 
-- 큰 리스트는 virtualization을 사용한다.
-- pagination, page size, prefetch threshold는 상수화한다.
-- 이미지와 asset은 필요한 크기로 로드한다.
+- Use virtualization for large lists.
+- Constantize pagination, page size, and prefetch threshold values.
+- Load images and assets at the required size.
 
-## bridge와 IO
+## Bridge and IO
 
-- native bridge 호출은 빈도와 payload 크기를 제한한다.
-- polling interval, debounce, throttle 값은 상수화한다.
-- 성능 개선은 before/after 측정 또는 재현 가능한 증거를 남긴다.
+- Limit native bridge call frequency and payload size.
+- Constantize polling interval, debounce, and throttle values.
+- Leave before/after measurements or reproducible evidence for performance improvements.

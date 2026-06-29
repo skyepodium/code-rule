@@ -1,22 +1,22 @@
-# 에러 처리 규칙
+# Error Handling Rules
 
-이 디렉토리는 에러 모델, 사용자 메시지, logging 경계를 정의한다.
+This directory defines error model, user message, and logging boundary rules.
 
-## 기본 원칙
+## Basic Principles
 
-- `catch` 값은 `unknown`으로 취급하고 narrowing 후 사용한다.
-- 빈 `catch`는 금지한다. 복구, 로깅, 재시도, 재throw 중 하나를 명시한다.
-- 사용자에게 보여줄 메시지와 개발자 로그 메시지를 분리한다.
-- 외부 시스템 에러는 service/adapter 경계에서 도메인 에러로 변환한다.
+- Treat `catch` values as `unknown` and use them only after narrowing.
+- Empty `catch` blocks are forbidden. Specify one of recovery, logging, retry, or rethrow.
+- Separate user-facing messages from developer log messages.
+- Convert external system errors into domain errors at service/adapter boundaries.
 
-## 사용자 메시지
+## User Messages
 
-- 사용자 메시지는 짧고 행동 가능해야 한다.
-- 민감한 내부 정보, stack trace, token, raw response를 사용자 메시지에 넣지 않는다.
-- 메시지 문자열은 도메인별 메시지 맵 또는 상수로 관리한다.
+- User messages must be short and actionable.
+- Do not put sensitive internal information, stack traces, tokens, or raw responses in user messages.
+- Manage message strings as domain-specific message maps or constants.
 
-## 복구와 재시도
+## Recovery and Retry
 
-- retry count, backoff, timeout은 상수화한다.
-- 재시도는 idempotent 작업 또는 명확히 안전한 작업에만 적용한다.
-- 실패를 삼키는 fallback은 주석 또는 코드 구조로 의도를 드러낸다.
+- Constantize retry counts, backoff, and timeouts.
+- Apply retries only to idempotent work or clearly safe work.
+- Reveal the intent of fallbacks that swallow failures through comments or code structure.

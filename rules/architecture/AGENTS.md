@@ -1,47 +1,47 @@
-# 아키텍처와 책임 경계 규칙
+# Architecture and Responsibility Boundary Rules
 
-이 디렉토리는 프로젝트 구조, 엔트리 포인트, side effect 경계, 파일 책임을 정의한다. 대상 프로젝트에서는 앱 루트, `src/`, `app/`, `features/`처럼 실행 흐름을 조립하는 가장 가까운 디렉토리에 둔다.
+This directory defines project structure, entry points, side-effect boundaries, and file responsibilities. In target projects, place it in the closest directory that composes execution flow, such as the app root, `src/`, `app/`, or `features/`.
 
-## 엔트리 포인트
+## Entry Points
 
-- 엔트리 포인트는 최대한 얇게 유지한다.
-- `main.ts`, `index.tsx`, `App.tsx`, root provider, root router, native app delegate/activity, server entry는 bootstrap과 wiring만 담당한다.
-- 엔트리 포인트에서 직접 비즈니스 규칙을 계산하지 않는다.
-- 네트워크, storage, 알림, 인증, 결제, native bridge, analytics 같은 세부 구현은 service나 adapter로 분리한다.
-- 엔트리 포인트는 초기화 순서, provider 연결, router 연결, 전역 listener 등록, 최상위 에러 경계 연결만 조합한다.
+- Keep entry points as thin as possible.
+- `main.ts`, `index.tsx`, `App.tsx`, root provider, root router, native app delegate/activity, and server entry are responsible only for bootstrap and wiring.
+- Do not calculate business rules directly in entry points.
+- Split implementation details such as networking, storage, notifications, authentication, payments, native bridges, and analytics into services or adapters.
+- Entry points should only compose initialization order, provider wiring, router wiring, global listener registration, and top-level error boundary wiring.
 
-## 책임 경계
+## Responsibility Boundaries
 
-- UI 컴포넌트는 화면 조립, 표시 상태, 사용자 입력 연결에 집중한다.
-- hook은 UI 생명주기와 도메인/service 호출을 연결한다.
-- service는 side effect와 외부 시스템 접근을 담당한다.
-- utility는 side effect 없는 순수 계산만 담당한다.
-- adapter는 프레임워크, 플랫폼, SDK, native bridge 같은 외부 경계를 감싼다.
-- 모델과 타입은 도메인 의미를 표현하고 UI 또는 SDK 세부 타입을 불필요하게 끌어오지 않는다.
+- UI components focus on screen composition, display state, and user input wiring.
+- Hooks connect the UI lifecycle to domain/service calls.
+- Services handle side effects and access to external systems.
+- Utilities handle only pure calculations without side effects.
+- Adapters wrap external boundaries such as frameworks, platforms, SDKs, and native bridges.
+- Models and types express domain meaning and avoid unnecessarily pulling in UI or SDK implementation types.
 
-## 의존성 방향
+## Dependency Direction
 
-- 상위 레이어가 하위 레이어를 호출한다. 하위 레이어가 화면, router, framework entry를 import하지 않는다.
-- 순환 의존성이 생기면 공통 타입, 순수 유틸, adapter 인터페이스를 더 낮은 레이어로 분리한다.
-- SDK 객체를 앱 전체에 직접 퍼뜨리지 않는다. 필요한 기능만 service/adapter 함수로 감싼다.
-- platform/framework 조건은 가능한 경계 모듈에 모은다. 호출부는 의미 있는 함수 이름으로 사용한다.
+- Higher layers call lower layers. Lower layers do not import screens, routers, or framework entries.
+- If circular dependencies appear, move common types, pure utilities, or adapter interfaces to a lower layer.
+- Do not spread SDK objects directly across the app. Wrap only the needed functionality in service/adapter functions.
+- Collect platform/framework conditionals in boundary modules when possible. Call sites should use meaningful function names.
 
-## 파일 크기와 분리 기준
+## File Size and Split Criteria
 
-- 한 파일은 한 가지 역할만 가진다.
-- 600 LOC를 넘으면 분리 후보로 본다.
-- 상태, gesture, playback, navigation, permission, storage처럼 서로 다른 변화 이유가 한 파일에 섞이면 분리한다.
-- 분리는 동작 변경 없이 작은 단위로 한다. 먼저 테스트나 기존 동작 확인으로 회귀 기준을 잡는다.
+- Each file has one role.
+- Treat files over 600 LOC as split candidates.
+- Split a file when different reasons for change, such as state, gestures, playback, navigation, permissions, or storage, are mixed together.
+- Split in small steps without behavior changes. First establish regression criteria through tests or existing behavior checks.
 
-## 전역 상태
+## Global State
 
-- 전역 mutable singleton은 새로 만들지 않는다.
-- 프로세스 단위 상태가 필요하면 service 경계에 가두고 lifecycle, reset, cleanup API를 명시한다.
-- 테스트에서 초기화할 수 없는 전역 상태는 설계 냄새로 본다.
-- 캐시, 큐, listener registry는 만료/해제/중복 등록 방지 규칙을 코드로 드러낸다.
+- Do not create new global mutable singletons.
+- If process-level state is needed, contain it within a service boundary and explicitly define lifecycle, reset, and cleanup APIs.
+- Global state that cannot be initialized in tests is a design smell.
+- Caches, queues, and listener registries must reveal expiration, release, and duplicate-registration prevention rules in code.
 
-## 제어 흐름
+## Control Flow
 
-- guard clause와 early return을 우선해 happy path를 얕게 유지한다.
-- 실패, 권한 없음, 데이터 없음, 플랫폼 제외, disabled/no-op 조건은 함수 앞쪽에서 반환한다.
-- 여러 조건을 하나의 긴 boolean으로 숨기지 않는다. 도메인 의미가 있는 조건은 helper로 이름을 붙인다.
+- Prefer guard clauses and early returns to keep the happy path shallow.
+- Return near the start of a function for failure, missing permission, missing data, platform exclusion, and disabled/no-op conditions.
+- Do not hide many conditions in one long boolean. Give domain-meaningful conditions helper names.

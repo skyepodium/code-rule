@@ -1,22 +1,22 @@
-# Form 규칙
+# Form Rules
 
-이 디렉토리는 form state, validation, submit 규칙을 정의한다.
+This directory defines form state, validation, and submit rules.
 
-## 상태
+## State
 
-- field value, touched, dirty, error, submit state를 구분한다.
-- validation schema 또는 명시적 validator를 사용한다.
-- server validation error와 client validation error를 구분한다.
-- form state를 불필요하게 global store에 올리지 않는다.
+- Distinguish field value, touched, dirty, error, and submit state.
+- Use a validation schema or explicit validators.
+- Distinguish server validation errors from client validation errors.
+- Do not put form state in a global store unnecessarily.
 
-## 입력
+## Inputs
 
-- input label, placeholder, helper text, error text 역할을 섞지 않는다.
-- 숫자, 날짜, 통화, 전화번호는 parse와 display formatting을 분리한다.
-- IME composition과 모바일 keyboard type을 고려한다.
+- Do not mix the roles of input labels, placeholders, helper text, and error text.
+- Separate parsing from display formatting for numbers, dates, currency, and phone numbers.
+- Consider IME composition and mobile keyboard types.
 
-## 제출
+## Submit
 
-- submit 중복 실행을 막는다.
-- submit 실패 시 사용자가 복구할 수 있는 메시지를 제공한다.
-- 성공 후 reset, navigation, optimistic update 기준을 명시한다.
+- Prevent duplicate submit execution.
+- On submit failure, provide a message users can recover from.
+- Specify criteria for reset, navigation, and optimistic updates after success.
