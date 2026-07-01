@@ -58,6 +58,16 @@ rules/ci/AGENTS.md
 rules/release/AGENTS.md
 ```
 
+A native desktop app with an app bundle, native core, or cross-language bridge usually adds:
+
+```text
+rules/native-desktop/AGENTS.md
+rules/assets/AGENTS.md
+rules/performance/AGENTS.md
+rules/release/AGENTS.md
+rules/testing/AGENTS.md
+```
+
 ## How to Apply It
 
 1. Copy the root `AGENTS.md` into the target project root.
