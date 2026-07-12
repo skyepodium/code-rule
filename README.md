@@ -68,6 +68,16 @@ rules/release/AGENTS.md
 rules/testing/AGENTS.md
 ```
 
+A terminal emulator, shell host, PTY frontend, or application that consumes terminal control protocols usually adds:
+
+```text
+rules/terminal-emulator/AGENTS.md
+rules/native-desktop/AGENTS.md
+rules/concurrency-async/AGENTS.md
+rules/security-privacy/AGENTS.md
+rules/testing/AGENTS.md
+```
+
 ## How to Apply It
 
 1. Copy the root `AGENTS.md` into the target project root.

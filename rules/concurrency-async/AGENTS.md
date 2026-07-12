@@ -24,3 +24,10 @@ This directory defines rules for asynchronous work, cancellation, and race condi
 - Define pause and resume criteria for background/foreground transitions.
 - Avoid unbounded queues. Define max size, drop policy, retry policy, or backpressure behavior for queued async work.
 - For polling, define start, stop, visibility/background behavior, and duplicate-start prevention.
+
+## External Callback Boundaries
+
+- Do not infer a callback's executor from the object that registered it. Framework-owned callbacks, SDK delegates, GPU completions, notification handlers, and native bridge callbacks must be treated according to the executor contract of the API itself.
+- Keep callback bodies side-effect narrow. Capture immutable or sendable handoff data, complete required callback acknowledgements on the required executor, and schedule UI work separately.
+- Do not move a required completion handler into a task, actor hop, promise chain, or unrelated queue unless the API explicitly permits asynchronous completion there.
+- Tests for callback-order bugs should assert both behavior and ordering: completion happens exactly once, cancellation/error paths also complete, and UI mutation happens only after the required executor handoff.
