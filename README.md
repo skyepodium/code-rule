@@ -68,6 +68,16 @@ rules/release/AGENTS.md
 rules/testing/AGENTS.md
 ```
 
+A project where a model or agent generates, judges, or reviews part of the output — an AI pipeline, an agent workflow, or a generation service — usually adds:
+
+```text
+rules/ai-agent-governance/AGENTS.md
+rules/architecture/AGENTS.md
+rules/testing/AGENTS.md
+rules/errors/AGENTS.md
+rules/docs/AGENTS.md
+```
+
 A terminal emulator, shell host, PTY frontend, or application that consumes terminal control protocols usually adds:
 
 ```text

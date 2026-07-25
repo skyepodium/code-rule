@@ -30,3 +30,19 @@ This directory defines unit, integration, and component test rules.
 - `pnpm test` must pass before a PR.
 - If tests are too slow, isolate the slow cause and split unit tests from integration tests.
 - For performance work, include the smallest regression guard that proves the intended allocation, invalidation, or cache behavior, plus a normal build/test gate.
+
+## Contract Locking
+
+- Building a rule and keeping it from silently loosening are separate jobs. Only a regression test does the second.
+- Lock the stable interface, not the implementation: public signatures, serialized shapes, error codes, hashes, and deterministic output. A refactor that changes any of them is a contract change and must update the test deliberately.
+- When a test asserts the exact contents of a contract surface, treat its failure as a design question, not a chore. Extending a globally emitted contract for a feature most callers do not use is usually the wrong fix.
+- Lock documented behavior that lives in prose too: assert the required phrasing is present and that superseded phrasing is absent, so retired guidance cannot creep back.
+- Assert on stable error codes rather than message text, so wording can improve without breaking tests.
+
+## Determinism and Evidence
+
+- Verify determinism where you claim it: produce the artifact twice and compare hashes, rather than assuming a renderer is stable.
+- Prove causation before attributing a failure. When a failure appears after merging two changes, run a control with one change removed; identical failures mean you did not cause them.
+- Read the actual output of a verification run. A process exit code is not the test result when the command was piped through another program, and a completion notification is not evidence that assertions passed.
+- Dry-run a change that must land on top of someone else's in-flight work: apply it to a scratch copy of their version, confirm the anchors are present and unique, and run the affected tests there. A verified re-apply recipe beats a described one.
+
