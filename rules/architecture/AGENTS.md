@@ -91,6 +91,14 @@ This directory defines project structure, entry points, side-effect boundaries, 
 - Any file that derives from another is produced by a generator that also offers a non-mutating check mode, and that check runs in the standard verification sequence.
 - Extending a shared contract file past its size budget is a signal to split by contract family, not to keep appending. Split before adding more, and verify no export is dangling, duplicated across the new modules, or missing from the public surface.
 
+## Cross-Implementation Semantic Parity
+
+- When preview and production use different implementations, define the shared semantic contract before implementing either side. Inputs, units, coordinate meaning, timing, ordering, defaults, and failure modes belong to that contract.
+- Share interpretation even when rendering cannot be shared. Resolve configuration, presets, defaults, and overrides once, then feed complete values to each adapter.
+- Do not accept visual similarity at one sample as parity. Build fixtures at boundary values and compare the observable invariant each adapter promises.
+- A fallback inside one adapter that is absent from another creates two interfaces. Defaults belong at the shared interpretation seam, not inside concrete implementations.
+- Maintain a completeness test when a registry entry requires adapters in multiple runtimes. Adding a variant is incomplete until every required adapter exists.
+
 ## Registries and Variant Lifecycle
 
 - Add a variant as data — a registry entry, strategy table, or schema record — never as another branch in a conditional chain. If adding a variant requires editing three functions, refactor to a table first.

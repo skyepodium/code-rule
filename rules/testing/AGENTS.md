@@ -46,3 +46,11 @@ This directory defines unit, integration, and component test rules.
 - Read the actual output of a verification run. A process exit code is not the test result when the command was piped through another program, and a completion notification is not evidence that assertions passed.
 - Dry-run a change that must land on top of someone else's in-flight work: apply it to a scratch copy of their version, confirm the anchors are present and unique, and run the affected tests there. A verified re-apply recipe beats a described one.
 
+## Generated Artifact Verification
+
+- Verify the delivered artifact, not only the source, intermediate frame, build log, or encoder exit code.
+- Define artifact acceptance as measurable structure plus representative content checks. Examples include dimensions, frame count, duration, metadata, hashes, decoded content, and boundary screenshots.
+- Fully parse or decode an artifact when partial corruption can hide behind a successful write. A valid header or first frame is insufficient evidence.
+- Test temporal behavior at the exact frame before, on, and after a transition boundary. A midpoint screenshot cannot detect one-frame blinking, overlap, or stale state.
+- When two adapters claim parity, feed both the same resolved fixture and compare stable observable invariants rather than private implementation strings.
+- Re-run post-processing checks after the final transformation. Encoding, minification, packaging, signing, and copying can alter properties that passed earlier.

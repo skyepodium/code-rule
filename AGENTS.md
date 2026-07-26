@@ -32,6 +32,8 @@ When rules conflict, follow the narrower-scope `AGENTS.md`. When changing rules,
 - Make lifecycle ownership explicit. Code that creates listeners, timers, subscriptions, caches, object URLs, native handles, or async work must also define cleanup, cancellation, or reset behavior.
 - Treat memory growth as a correctness concern. Caches need limits or TTL, long-lived collections need deletion paths, and large objects should not be retained beyond their useful lifecycle.
 - Keep complexity within a reviewable budget. If a function needs many branches, many parameters, or deep nesting, split it into named helpers, smaller use cases, or separate modules before adding more logic.
+- When preview and production use different technologies, define one semantic contract for their inputs, units, defaults, timing, coordinates, and failure behavior. Share interpretation and verify adapter parity at observable boundaries.
+- Treat generated files as derived artifacts. Keep their human-edited source and reproducible generator authoritative, and verify the final artifact after every transformation that can change its contract.
 
 ## Language and Naming
 

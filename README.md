@@ -9,6 +9,7 @@ It is meant to be copied into real projects as `AGENTS.md` guidance, not read as
 - A root engineering contract that defines the default coding style and architecture boundaries.
 - Optional rule packs for specific stacks such as TypeScript, React, Next.js, React Native, Expo, Tailwind, Storybook, Android, and iOS.
 - Operational rules for testing, linting, CI, dependency decisions, release process, documentation, security, storage, logging, and performance.
+- Deterministic media-editing rules for timelines, effects, subtitles, preview/export parity, safe areas, encoding, and delivery verification.
 - Clear priority behavior: broad rules live at the project root, and narrower `AGENTS.md` files override them closer to the code they govern.
 
 ## Recommended Setup
@@ -76,6 +77,18 @@ rules/architecture/AGENTS.md
 rules/testing/AGENTS.md
 rules/errors/AGENTS.md
 rules/docs/AGENTS.md
+```
+
+A video editor, subtitle compositor, animation renderer, thumbnail pipeline, or
+other time-based media tool usually adds:
+
+```text
+rules/media-rendering/AGENTS.md
+rules/assets/AGENTS.md
+rules/responsive-layout/AGENTS.md
+rules/performance/AGENTS.md
+rules/testing/AGENTS.md
+rules/architecture/AGENTS.md
 ```
 
 A terminal emulator, shell host, PTY frontend, or application that consumes terminal control protocols usually adds:
