@@ -1,147 +1,61 @@
 # code-rule
 
-`code-rule` is a portable engineering rulebook for projects that use AI coding agents, TypeScript, React, Next.js, React Native, and pnpm.
+A portable engineering rulebook for projects worked on by AI coding agents.
 
-It is meant to be copied into real projects as `AGENTS.md` guidance, not read as a directory catalog. The goal is to make every project start with clear defaults for architecture, naming, type safety, testing, package management, UI tokens, review discipline, and release hygiene.
+Copy `AGENTS.md` into a project root, add the rule packs that apply, and every agent and
+reviewer starts from the same defaults for architecture, naming, type safety, testing,
+tokens, review, and release.
 
-## What This Gives a Project
+## How the rules resolve
 
-- A root engineering contract that defines the default coding style and architecture boundaries.
-- Optional rule packs for specific stacks such as TypeScript, React, Next.js, React Native, Expo, Tailwind, Storybook, Android, and iOS.
-- Operational rules for testing, linting, CI, dependency decisions, release process, documentation, security, storage, logging, and performance.
-- Deterministic media-editing rules for timelines, effects, subtitles, preview/export parity, safe areas, encoding, and delivery verification.
-- Clear priority behavior: broad rules live at the project root, and narrower `AGENTS.md` files override them closer to the code they govern.
-
-## Recommended Setup
-
-Start with the root rulebook:
-
-```text
-AGENTS.md
-```
-
-Then add scoped rule packs only where they apply. A typical web app setup uses:
-
-```text
-AGENTS.md
-rules/typescript/AGENTS.md
-rules/react/AGENTS.md
-rules/next/AGENTS.md
-rules/pnpm/AGENTS.md
-rules/testing/AGENTS.md
-rules/eslint/AGENTS.md
-rules/classnames/AGENTS.md
-rules/constants/AGENTS.md
-rules/design-tokens/AGENTS.md
-rules/security-privacy/AGENTS.md
-rules/review/AGENTS.md
-```
-
-A React Native or Expo app usually adds the mobile-specific packs:
-
-```text
-rules/react-native/AGENTS.md
-rules/expo/AGENTS.md
-rules/android/AGENTS.md
-rules/ios/AGENTS.md
-rules/navigation/AGENTS.md
-rules/storage/AGENTS.md
-rules/accessibility/AGENTS.md
-rules/responsive-layout/AGENTS.md
-```
-
-A monorepo usually adds:
-
-```text
-rules/monorepo/AGENTS.md
-rules/dependencies/AGENTS.md
-rules/ci/AGENTS.md
-rules/release/AGENTS.md
-```
-
-A native desktop app with an app bundle, native core, or cross-language bridge usually adds:
-
-```text
-rules/native-desktop/AGENTS.md
-rules/assets/AGENTS.md
-rules/performance/AGENTS.md
-rules/release/AGENTS.md
-rules/testing/AGENTS.md
-```
-
-A project where a model or agent generates, judges, or reviews part of the output — an AI pipeline, an agent workflow, or a generation service — usually adds:
-
-```text
-rules/ai-agent-governance/AGENTS.md
-rules/architecture/AGENTS.md
-rules/testing/AGENTS.md
-rules/errors/AGENTS.md
-rules/docs/AGENTS.md
-```
-
-A video editor, subtitle compositor, animation renderer, thumbnail pipeline, or
-other time-based media tool usually adds:
-
-```text
-rules/media-rendering/AGENTS.md
-rules/assets/AGENTS.md
-rules/responsive-layout/AGENTS.md
-rules/performance/AGENTS.md
-rules/testing/AGENTS.md
-rules/architecture/AGENTS.md
-```
-
-A terminal emulator, shell host, PTY frontend, or application that consumes terminal control protocols usually adds:
-
-```text
-rules/terminal-emulator/AGENTS.md
-rules/native-desktop/AGENTS.md
-rules/concurrency-async/AGENTS.md
-rules/security-privacy/AGENTS.md
-rules/testing/AGENTS.md
-```
-
-## How to Apply It
-
-1. Copy the root `AGENTS.md` into the target project root.
-2. Copy the stack-specific rule packs into the directories where they should apply.
-3. Keep broad rules near the root and specialized rules near the relevant code.
-4. Merge overlapping rules only when the target project needs a single consolidated `AGENTS.md`.
-5. When project reality differs from a rule, update the rule and the code together so the contract stays current.
-
-Example layout:
+The `AGENTS.md` closest to a file wins. Broad rules live at the project root; narrower
+packs sit next to the code they govern and override the root where they disagree.
 
 ```text
 my-app/
-  AGENTS.md
-  app/
-    AGENTS.md
-  src/
-    AGENTS.md
-  src/components/
-    AGENTS.md
-  ios/
-    AGENTS.md
-  android/
-    AGENTS.md
+  AGENTS.md              ← the root contract, always
+  src/AGENTS.md          ← narrower, overrides the root here
+  ios/AGENTS.md
 ```
 
-## Rule Philosophy
+## Choosing packs
 
-The rules are intentionally opinionated:
+Start with the root `AGENTS.md`. Add packs by what the project is — most projects match
+more than one row.
 
-- Prefer explicit boundaries over clever coupling.
-- Prefer strict layer separation over convenient cross-layer imports.
-- Prefer `unknown` plus validation over `any`.
-- Prefer arrow function expressions over function declarations.
-- Prefer pnpm-only workflows over mixed package manager usage.
-- Prefer constants and design tokens over inline magic values.
-- Prefer services, adapters, hooks, and pure utilities over bloated entry points.
-- Prefer tests and verification evidence before claiming completion.
-- Prefer lifecycle ownership, bounded memory use, and clear cleanup paths over implicit long-lived state.
+| Project | Packs to add under `rules/` |
+| --- | --- |
+| Any project | `git`, `config`, `constants`, `docs`, `errors`, `review`, `security-privacy`, `testing` |
+| TypeScript | `typescript`, `eslint` |
+| React / Next.js web | `react`, `next`, `pnpm`, `classnames`, `design-tokens`, `state-management`, `forms`, `api`, `accessibility` |
+| Styling and component workshop | `tailwind`, `storybook`, `responsive-layout`, `assets` |
+| React Native / Expo | `react-native`, `expo`, `android`, `ios`, `navigation`, `storage`, `accessibility`, `responsive-layout` |
+| Monorepo | `monorepo`, `dependencies`, `ci`, `release` |
+| Native desktop, native core, cross-language bridge | `native-desktop`, `assets`, `performance`, `release` |
+| Terminal emulator, shell host, PTY frontend | `terminal-emulator`, `native-desktop`, `concurrency-async` |
+| Time-based media: video, subtitles, animation, thumbnails | `media-rendering`, `assets`, `performance`, `architecture` |
+| A model or agent generates, judges, or reviews the output | `ai-agent-governance`, `architecture`, `errors` |
+| Runs in production | `logging-observability`, `performance` |
 
-These defaults are designed to reduce ambiguous code review debates and give AI agents the same baseline a senior engineer would enforce manually.
+`ls rules/` lists every pack; each one states its own scope in its first paragraph.
 
-## Maintenance
+## Applying them
 
-Treat these files as living project contracts. If a rule no longer matches how a project should work, do not ignore it silently. Update the rule, update examples if needed, and keep the project-specific `AGENTS.md` files aligned with the codebase.
+1. Copy the root `AGENTS.md` to the project root.
+2. Copy each pack you chose to the directory it governs.
+3. Merge packs into one file only if the project insists on a single `AGENTS.md`.
+4. When the project outgrows a rule, change the rule and the code in the same commit.
+
+Step 4 is the one that decides whether this stays useful. A rule nobody updated is a rule
+everybody learns to skip.
+
+## What these defaults prefer
+
+Explicit boundaries over clever coupling. Strict layers over convenient cross-layer
+imports. `unknown` plus validation over `any`. Constants and tokens over inline values.
+Lifecycle ownership and bounded memory over implicit long-lived state. Evidence that a
+change was exercised over a green build.
+
+They are opinionated on purpose: the point is to settle the arguments a review would
+otherwise have every week, and to give an agent the same baseline a senior engineer would
+enforce by hand.
