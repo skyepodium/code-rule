@@ -37,3 +37,18 @@ This directory defines UI visual values and design system token boundaries. In t
 - Do not write colors directly in components, such as `style={{ color: '#ffffff' }}`.
 - Do not write visual values directly in styles, such as `fontSize: 16`, `borderRadius: 8`, or `opacity: 0.72`.
 - Do not put design tokens and business constants together in `constants.ts`.
+
+## Interaction Feedback
+
+- Press, hover, focus, and disabled states are tokens, not per-component decisions. Their
+  durations, opacities, scales, and haptic strengths live with the other tokens so that
+  "the same press" is one value rather than a convention people re-derive.
+- Controls that sit together and do the same kind of thing answer a press the same way.
+  Before changing how one of them responds, put all of them on screen together and look:
+  a consistency change verified one control at a time is not verified.
+- A press needs an answer the user can perceive. A scale or a haptic alone is not one for
+  a control whose result is off screen, dismissed immediately, or handed to another app —
+  those are exactly the controls that read as broken.
+- Feedback that layers on a surface layers *over* it. Replacing a control's background
+  with a translucent tint removes the surface that made it legible and usually reads as
+  the control disappearing rather than lighting up.

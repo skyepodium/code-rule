@@ -28,3 +28,19 @@ This directory defines local, server, and global state boundaries.
 - Design optimistic updates together with rollback conditions and failure messages.
 - Keep cross-slice orchestration in services or named use cases rather than implicit subscriptions between stores.
 - Cleanup for optimistic, cached, or subscribed state must be explicit on logout, account switch, workspace switch, and test reset.
+
+## Reads a Declarative Framework Can Reach
+
+A declarative renderer re-evaluates whenever it likes: mid-dismissal, mid-animation, after
+one mutation and before the next. Any window in which two pieces of state disagree is a
+window a user can land in, and the framework will happily read through it.
+
+- A selector, computed property, or derived value the view layer can reach must not throw
+  and must not assert. Crashing on an inconsistent snapshot is for bugs that cannot ship,
+  not for a state the renderer can legitimately observe between two of its own passes.
+- Return an empty, neutral, or explicitly absent value instead. The screen a user sees for
+  one frame while the state settles is a design question, not a reason to abort.
+- State that must agree is changed by one function, never by two assignments that a render
+  can interleave.
+- Decoded input — restored sessions, cached payloads, anything out of local storage — is
+  untrusted. Validate and degrade it; never let it index into a collection unchecked.

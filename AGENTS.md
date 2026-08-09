@@ -22,6 +22,37 @@ When rules conflict, follow the narrower-scope `AGENTS.md`. When changing rules,
 - Optimize for readability at the call site. Names, branches, and constants should make intent clear without requiring readers to inspect implementation details.
 - Optimize for code that can be changed safely by someone who did not write it.
 
+## Reporting and Instruction Handling
+
+These govern how work is described and how a request is read. They were added after a
+native app shipped several changes that compiled, passed review, and did nothing.
+
+- **A claim that shrinks the work carries the burden of proof.** "This cannot be tested",
+  "that tool is unavailable", "a weaker version fits here", "this case does not apply" —
+  each licenses doing less, and none of them gets exercised by anyone. A claim that
+  *expands* the work tests itself: someone tries to satisfy it and finds out immediately.
+  Before acting on one, state what was actually tried and what it returned. An inference
+  is not an attempt.
+- **This applies to the rulebook itself.** A rule that forbids something is tested every
+  time it is obeyed. A rule that permits skipping something is never tested at all, so a
+  false one survives indefinitely. Treat any sentence here that excuses work as suspect.
+- **Suspect deviations that make an effect smaller, later, quieter, or optional.** The
+  argument for less is always available and always feels like restraint.
+- **The instruction names the target; do not substitute a better one.** When a request
+  names an existing thing to match, a value to use, or an outcome to reach, that is the
+  specification, not a starting point. Writing the derivation into a doc comment does not
+  make it review — it is the same judgement restated with more confidence, and it reads to
+  the next person as a settled conclusion. If the named target seems wrong, say so in one
+  sentence, then do what was asked.
+- **Report what was observed, not what was produced.** Name the thing a person could have
+  watched happen: a control that lit, a request that returned, a test that failed before
+  the change and passed after. "It compiles", "the tests I wrote pass", and "the change
+  touched forty call sites" are statements about the work, not about its effect. When
+  nothing was observed, that is the report.
+- **"Try it without X" means make X stop happening, not destroy the ability to have X.**
+  Put the feature behind a flag with a documented default and say, in the same message,
+  that the code is disabled rather than gone and where the switch is.
+
 ## Core Engineering Principles
 
 - Keep modules independent. A module should have one reason to change, a small public interface, and dependencies that are visible from its imports and constructor/function parameters.
@@ -30,6 +61,8 @@ When rules conflict, follow the narrower-scope `AGENTS.md`. When changing rules,
 - Reuse only across stable boundaries. Do not extract shared code only because two call sites look similar; extract when the domain contract is stable or a third use proves the abstraction.
 - Make data ownership explicit. Each piece of state must have one owner: server cache, URL/route, form, local view state, or global app state. Avoid duplicate sources of truth.
 - Make lifecycle ownership explicit. Code that creates listeners, timers, subscriptions, caches, object URLs, native handles, or async work must also define cleanup, cancellation, or reset behavior.
+- Ownership follows lifetime, not convenience. A resource registered with a framework's event, layout, or lifecycle machinery is owned by something that lives at least as long as the thing it is attached to. A short-lived object may borrow its callbacks, never hold its registration: teardown then runs whenever that object happens to die, which is a moment the framework did not choose and does not defend against.
+- Withdrawing a registration is as dangerous as creating one, and usually less considered. Removing a listener, observer, recognizer, or subscription while the system is mid-dispatch can leave its internal bookkeeping holding nothing where it expects something.
 - Treat memory growth as a correctness concern. Caches need limits or TTL, long-lived collections need deletion paths, and large objects should not be retained beyond their useful lifecycle.
 - Keep complexity within a reviewable budget. If a function needs many branches, many parameters, or deep nesting, split it into named helpers, smaller use cases, or separate modules before adding more logic.
 - When preview and production use different technologies, define one semantic contract for their inputs, units, defaults, timing, coordinates, and failure behavior. Share interpretation and verify adapter parity at observable boundaries.
