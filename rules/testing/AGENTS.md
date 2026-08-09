@@ -17,6 +17,13 @@ This directory defines unit, integration, and component test rules.
 - If fixture values are magic values, keep them as named constants inside the test file.
 - Split large fixtures into builders or fixture factories.
 - Use snapshots only when the structure is stable and reviewable.
+- A test that asserts against a fixture proves the fixture. Where a file ships with the
+  product - translation catalogs, configuration, schemas, seed data - at least one test
+  opens the real file. Catalogs that had silently drifted apart were found this way and by
+  nothing else.
+- A bug fix ships with a test that fails without it. For anything that decodes stored or
+  remote input, feed it the empty case, a reference to something absent, a truncated
+  payload, and the wrong version.
 
 ## Mocks
 
@@ -25,11 +32,29 @@ This directory defines unit, integration, and component test rules.
 - Clean up timers, intervals, listeners, and subscriptions at the end of tests.
 - Async tests must not leave pending promises or open handles.
 
+## Reproducing Before Measuring
+
+- A harness that does not perform the reported trigger is measuring a different defect.
+  Write down the trigger as the reporter described it, then check that the harness performs
+  it. Ten trials under conditions that exclude the symptom are not weak evidence; they are
+  evidence about something else, and the volume makes it look rigorous.
+- When the trigger cannot be automated, say so and treat every number as provisional rather
+  than quietly substituting a proxy that can be.
+- Never report a fix from a run that did not reproduce the symptom.
+- When reading the code has produced two or more wrong diagnoses, stop reading and start
+  disabling. Turn one variable off at a time and measure. For an intermittent defect,
+  measure a rate across repeated runs; a single pass carries no information.
+- Pair an unexpected process termination with the platform's own crash report before naming
+  a cause. "The process disappeared" and "here is the exception that killed it" are
+  different facts.
+
 ## Verification
 
 - `pnpm test` must pass before a PR.
 - If tests are too slow, isolate the slow cause and split unit tests from integration tests.
 - For performance work, include the smallest regression guard that proves the intended allocation, invalidation, or cache behavior, plus a normal build/test gate.
+- A compile is not a check, and neither is a green unit suite for a change a person can
+  see. Exercise the thing that changed, or report that it was not exercised.
 
 ## Contract Locking
 
